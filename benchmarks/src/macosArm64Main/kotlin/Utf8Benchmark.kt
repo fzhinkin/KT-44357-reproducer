@@ -9,6 +9,8 @@ import platform.posix.memcpy
 @OptIn(ExperimentalForeignApi::class)
 @Warmup(iterations = 2, time = 1, BenchmarkTimeUnit.SECONDS)
 @Measurement(iterations = 10, time = 1, BenchmarkTimeUnit.SECONDS)
+@BenchmarkMode(Mode.AverageTime)
+@OutputTimeUnit(BenchmarkTimeUnit.MICROSECONDS)
 @State(Scope.Benchmark)
 class Utf8Benchmark {
     @Param("well-formed-utf8", "\uD83D\uDE18\uFE0F\uD83D\uDE02\uD83D\uDE00\uD83D\uDE1D")
