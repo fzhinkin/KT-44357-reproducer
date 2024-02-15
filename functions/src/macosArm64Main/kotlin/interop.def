@@ -1,0 +1,8 @@
+headers = string.h
+package = libc
+
+---
+
+size_t strlenNative(char *s) {
+    return strlen(s);
+}

@@ -1,5 +1,13 @@
+pluginManagement {
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        gradlePluginPortal()
+    }
+}
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
 }
-rootProject.name = "kotlinx-benchmark-kmp-template"
-
+rootProject.name = "KT-44357-reproducer"
+include("functions")
+include("benchmarks")
