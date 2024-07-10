@@ -16,11 +16,14 @@ class Utf8Benchmark {
     @Param("well-formed-utf8", "\uD83D\uDE18\uFE0F\uD83D\uDE02\uD83D\uDE00\uD83D\uDE1D")
     var original: String = ""
     var originalBytes = ByteArray(0)
+    var bytesCount = 0
     var originalBytesPtr: CPointer<ByteVar> = nativeHeap.allocArray(0)
 
     @Setup
     fun setup() {
-        originalBytes = original.repeat(128).encodeToByteArray()
+        val rawBytes = original.repeat(128).encodeToByteArray()
+        bytesCount = rawBytes.size + 1
+        originalBytes = rawBytes.copyOf(bytesCount + 1)
         originalBytesPtr = nativeHeap.allocArrayOf(originalBytes)
     }
 
@@ -51,7 +54,7 @@ class Utf8Benchmark {
 
     @Benchmark
     fun copyToByteArrayThenDecodeByteArray(): String {
-        val count = originalBytes.size
+        val count = originalBytes.size - 1
         ByteArray(count).usePinned {
             memcpy(it.addressOf(0), originalBytesPtr, count.toULong())
             return it.get().decodeToString()
@@ -59,5 +62,5 @@ class Utf8Benchmark {
     }
 
     @Benchmark
-    fun justDecodeByteArray(): String = originalBytes.decodeToString()
+    fun justDecodeByteArray(): String = originalBytes.decodeToString(0, bytesCount)
 }

@@ -1,4 +1,3 @@
-import kotlinx.benchmark.gradle.NativeBenchmarkTarget
 
 plugins {
     kotlin("multiplatform")
@@ -21,7 +20,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-benchmark-runtime:0.4.10")
+                implementation("org.jetbrains.kotlinx:kotlinx-benchmark-runtime:0.4.11")
             }
         }
 
